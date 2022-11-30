@@ -28,7 +28,7 @@
       </div>
       <div class="input-field">
         <label for="cfmpassword">Confirm Password</label>
-        <input name="cfmpassword" type="cfmpassword" id="cfmpassword" />
+        <input name="cfmpassword" type="password" id="cfmpassword" />
       </div>
       <a href="./login.php" class="signUp">Sign in</a>
       <button class="login">Sign Up</button>

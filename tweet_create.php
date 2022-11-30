@@ -12,10 +12,7 @@ if (
 
 $text = $_POST['text'];
 
-// 各種項目設定
-$dbn = 'mysql:dbname=gskadai_twitter;charset=utf8mb4;port=3306;host=localhost';
-$user = 'root';
-$pwd = '';
+require_once('./config.php');
 
 // DB接続
 try {
@@ -26,13 +23,13 @@ try {
 }
 
 // SQL作成&実行
-$sql = 'INSERT INTO tweet_table (id, text, uid, created_at, updated_at) VALUES (NULL, :text, :uid, now(), now())';
+$sql = 'INSERT INTO tweet_table (id, text, user_id, created_at, updated_at) VALUES (NULL, :text, :user_id, now(), now())';
 
 $stmt = $pdo->prepare($sql);
 
 // バインド変数を設定
 $stmt->bindValue(':text', $text, PDO::PARAM_STR);
-$stmt->bindValue(':uid', '1', PDO::PARAM_STR);
+$stmt->bindValue(':user_id', '1', PDO::PARAM_STR);
 
 // SQL実行（実行に失敗すると `sql error ...` が出力される）
 try {
