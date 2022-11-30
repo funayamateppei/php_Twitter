@@ -1,0 +1,118 @@
+/* 全体 */
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#home {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  box-sizing: border-box;
+}
+
+
+/* ヘッダー */
+header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80%;
+  height: 50px;
+  background-color: lightcyan;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* サイドバー */
+#sideBar {
+  width: 20%;
+  height: 100%;
+  background-color: gray;
+}
+
+
+/* タイムライン */
+#display {
+  width: 50%;
+  height: 100%;
+  background-color: black;
+  border-right: 1px solid gray;
+}
+
+
+/* 掲示板 */
+#bbs {
+  width: 30%;
+  height: 100%;
+  background-color: black;
+}
+
+
+/* ツイート画面表示ボタン */
+#formBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 35%;
+}
+
+#formBtn button {
+  color: white;
+  background-color: blue;
+}
+
+/* ツイート画面 */
+#tweet {
+  display: none;
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  width: 500px;
+  height: 500px;
+  background-color: white;
+}
+
+#tweet form {
+  width: 500px;
+  height: 500px;
+  border: 1px solid gray;
+  position: relative;
+}
+
+#tweet form p {
+  position: absolute;
+  top: 12.5px;
+  left: 12.5px;
+  border: 1px solid gray;
+  width: 100px;
+  line-height: 25px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#tweet form textarea {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 400px;
+  height: 400px;
+  padding: 15px;
+  background-color: beige;
+}
+
+#tweet form button {
+  position: absolute;
+  top: 12.5px;
+  right: 12.5px;
+  border: 1px solid gray;
+  width: 100px;
+  line-height: 25px;
+  text-align: center;
+}
