@@ -1,3 +1,65 @@
+<?php
+
+// sessionを使うところでは必ず最初にsession_start()しないと使えない！
+session_start();
+
+// var_dump($_SESSION);
+// exit();
+
+// 一応、もしsessionが設定されていないいならログインページにとばす
+if(isset($_SESSION)){
+$welcome = "ようこそ、".$_SESSION['username']."さん！";
+}else{
+header('Location:./login.php');
+exit();
+}
+
+require_once('./config.php');
+
+// DB接続
+try {
+  $pdo = new PDO($dbn, $user, $pwd);
+} catch (PDOException $e) {
+  // PHP_EOL いいかんじに改行
+  echo json_encode(["db error" => "{$e->getMessage()}"]) . PHP_EOL;
+  exit();
+}
+
+// SQL作成&実行 ツイート全て取得
+$sql = 'SELECT id, text, user_id, username, created_at FROM tweet_table ORDER BY created_at ASC';
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// echo '<pre>';
+// var_dump($row);
+// echo '</pre>';
+
+
+$htmlElements = '';
+// 繰り返し文で表示する用の文字列を作成
+foreach ($row as $v) {
+  // var_dump($v['username']);
+  // exit();
+  $htmlElements .= "
+      <div class='item'>
+        <img src='./wooden-board-empty-table-top-on-of-blurred-background.jpg' alt='画像'>
+        <div class='sentence'>
+          <div class='who'>
+            <p class='username'>{$v['username']}</p>
+            <p class='tweetTime'>{$v['created_at']}</p>
+          </div>
+          <p>{$v['text']}</p>
+        </div>
+      </div>
+        ";
+}
+
+// var_dump($htmlElements);
+// exit();
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -15,22 +77,22 @@
 
     <!-- ヘッダー -->
     <header>
-      home
+      <?= $welcome ?>
     </header>
 
-    <!-- サイドバー -->
-    <div id="sideBar">
-
-    </div>
-
-    <!-- タイムライン -->
-    <div id="display">
-
-    </div>
-
-    <!-- 掲示板 -->
-    <div id="bbs">
-
+    <div class="homeDisplay">
+      <!-- サイドバー -->
+      <div id="sideBar">
+        マイページとかのメニュー欄
+      </div>
+      <!-- タイムライン -->
+      <div id="display">
+        <?= $htmlElements ?>
+      </div>
+      <!-- 掲示板 -->
+      <div id="bbs">
+        集り募集の掲示板みたいなやつ
+      </div>
     </div>
 
   </div>

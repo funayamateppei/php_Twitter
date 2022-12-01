@@ -1,4 +1,5 @@
 <?php
+
 require_once('./config.php');
 
 // DB接続
@@ -37,7 +38,7 @@ $stmt->execute([$email]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 //データベース内のメールアドレスと重複していない場合、登録する。
 if (!isset($row['email'])) {
-  $sql = "INSERT INTO user_table (id, username, email, pass, created_at) value(NULL, :username, :email, :pass, now())";
+  $sql = "INSERT INTO user_table (id, username, email, pass, created_at, updated_at) value(NULL, :username, :email, :pass, now(), now())";
   $stmt = $pdo->prepare($sql);
   // バインド変数を設定
   $stmt->bindValue(':username', $username, PDO::PARAM_STR);
