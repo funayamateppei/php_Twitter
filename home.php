@@ -6,7 +6,7 @@ session_start();
 // var_dump($_SESSION);
 // exit();
 
-// もしsessionが設定されていないいならログインページにとばす
+// 一応、もしsessionが設定されていないいならログインページにとばす
 if(isset($_SESSION)){
 $welcome = "ようこそ、".$_SESSION['username']."さん！";
 }else{
@@ -37,6 +37,7 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 $htmlElements = '';
+// 繰り返し文で表示する用の文字列を作成
 foreach ($row as $v) {
   // var_dump($v['username']);
   // exit();
@@ -86,19 +87,7 @@ foreach ($row as $v) {
       </div>
       <!-- タイムライン -->
       <div id="display">
-        <!-- 繰り返し文で表示 -->
         <?= $htmlElements ?>
-        <!-- <div class="item">
-          <img src="./wooden-board-empty-table-top-on-of-blurred-background.jpg" alt="画像">
-          <div class="sentence">
-            <div class="who">
-              <p class="username">名前だお</p>
-              <p class="tweetTime">ツイート時間表示</p>
-            </div>
-            <p>ツイートの内容</p>
-          </div>
-        </div> -->
-      
       </div>
       <!-- 掲示板 -->
       <div id="bbs">

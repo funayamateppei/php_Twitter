@@ -3,10 +3,10 @@
 #
 
 # 参考にしたサイト
-- Emailのバリデーション
+- Emailのバリデーション FILTER_VALIDATE_EMAIL
   - https://qumeru.com/magazine/505
 
-- passwordのバリデーション
+- passwordのバリデーション 半角英数字それぞれ１文字以上で8~15文字で入力
   - https://qiita.com/momotaro98/items/460c6cac14473765ec14
 
 - passwordのハッシュ化はなぜするのか？
@@ -29,3 +29,6 @@
 
 - session_regenerate_id
   - https://www.javadrive.jp/php/session/index6.html
+
+- php ループ処理
+  - https://www.willstyle.co.jp/blog/2173/
