@@ -26,7 +26,7 @@ try {
 }
 
 // SQL作成&実行 ツイート全て取得
-$sql = 'SELECT text, user_id, created_at FROM tweet_table ORDER BY created_at ASC';
+$sql = 'SELECT id, text, user_id, username, created_at FROM tweet_table ORDER BY created_at ASC';
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -34,6 +34,28 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // echo '<pre>';
 // var_dump($row);
 // echo '</pre>';
+
+
+$htmlElements = '';
+foreach ($row as $v) {
+  // var_dump($v['username']);
+  // exit();
+  $htmlElements .= "
+      <div class='item'>
+        <img src='./wooden-board-empty-table-top-on-of-blurred-background.jpg' alt='画像'>
+        <div class='sentence'>
+          <div class='who'>
+            <p class='username'>{$v['username']}</p>
+            <p class='tweetTime'>{$v['created_at']}</p>
+          </div>
+          <p>{$v['text']}</p>
+        </div>
+      </div>
+        ";
+}
+
+// var_dump($htmlElements);
+// exit();
 
 ?>
 
@@ -57,19 +79,31 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <?= $welcome ?>
     </header>
 
-    <!-- サイドバー -->
-    <div id="sideBar">
-
-    </div>
-
-    <!-- タイムライン -->
-    <div id="display">
+    <div class="homeDisplay">
+      <!-- サイドバー -->
+      <div id="sideBar">
+        マイページとかのメニュー欄
+      </div>
+      <!-- タイムライン -->
+      <div id="display">
+        <!-- 繰り返し文で表示 -->
+        <?= $htmlElements ?>
+        <!-- <div class="item">
+          <img src="./wooden-board-empty-table-top-on-of-blurred-background.jpg" alt="画像">
+          <div class="sentence">
+            <div class="who">
+              <p class="username">名前だお</p>
+              <p class="tweetTime">ツイート時間表示</p>
+            </div>
+            <p>ツイートの内容</p>
+          </div>
+        </div> -->
       
-    </div>
-
-    <!-- 掲示板 -->
-    <div id="bbs">
-
+      </div>
+      <!-- 掲示板 -->
+      <div id="bbs">
+        集り募集の掲示板みたいなやつ
+      </div>
     </div>
 
   </div>

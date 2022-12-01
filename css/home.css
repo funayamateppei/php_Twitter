@@ -7,6 +7,7 @@ html {
 body {
   width: 100%;
   height: 100%;
+  background-color: #68a4d9;
 }
 
 #home {
@@ -17,12 +18,18 @@ body {
 }
 
 
+.homeDisplay {
+  width: 100%;
+  display: flex;
+}
+
+
 /* ヘッダー */
 header {
   position: absolute;
   top: 0;
   right: 0;
-  width: 80%;
+  width: 85%;
   height: 50px;
   background-color: lightcyan;
   display: flex;
@@ -33,7 +40,8 @@ header {
 
 /* サイドバー */
 #sideBar {
-  width: 20%;
+  position: fixed;
+  width: 15%;
   height: 100%;
   background-color: gray;
 }
@@ -43,16 +51,54 @@ header {
 #display {
   width: 50%;
   height: 100%;
-  background-color: black;
+  padding-top: 50px;
+  margin-left: 15%;
+  background-color: #68a4d9;
   border-right: 1px solid gray;
+}
+
+#display .item {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  border-bottom: .5px solid gray; 
+}
+
+#display .item .sentence {
+  margin-left: 8px;
+}
+
+#display .item .who {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+#display .item .username {
+  color: white;
+  font-weight: bold;
+}
+
+#display .item .tweetTime {
+  font-size: small;
+  color: rgb(87, 86, 86);
+}
+
+#display .item img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid white;
 }
 
 
 /* 掲示板 */
 #bbs {
-  width: 30%;
+  width: 35%;
   height: 100%;
-  background-color: black;
+  padding-top: 50px;
+  background-color: #68a4d9;
 }
 
 
@@ -60,13 +106,28 @@ header {
 #formBtn {
   position: absolute;
   bottom: 20px;
-  right: 35%;
+  right: 38%;
 }
 
 #formBtn button {
   color: white;
-  background-color: blue;
+  background-color: rgb(122, 122, 243);
+  border-radius: 50%;
+  box-shadow: 0 0 10px gray;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  transition: .3s;
 }
+#formBtn button:hover {
+  opacity: .7;
+  transition: .3s;
+}
+#formBtn button:active {
+  box-shadow: none;
+  transition: .3s;
+}
+
 
 /* ツイート画面 */
 #tweet {
