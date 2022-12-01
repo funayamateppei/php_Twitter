@@ -20,3 +20,12 @@
 
 - ユーザーと情報を紐づける考え方
   - https://teratail.com/questions/72367
+
+- password_verify の使い方 ハッシュ化したパスと送られてきたパスを比較
+  - https://man.plustar.jp/php/function.password-verify.html
+
+- session 仕組み
+  - https://wepicks.net/phpref-session/
+
+- session_regenerate_id
+  - https://www.javadrive.jp/php/session/index6.html

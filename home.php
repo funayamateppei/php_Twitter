@@ -1,3 +1,42 @@
+<?php
+
+// sessionを使うところでは必ず最初にsession_start()しないと使えない！
+session_start();
+
+// var_dump($_SESSION);
+// exit();
+
+// もしsessionが設定されていないいならログインページにとばす
+if(isset($_SESSION)){
+$welcome = "ようこそ、".$_SESSION['username']."さん！";
+}else{
+header('Location:./login.php');
+exit();
+}
+
+require_once('./config.php');
+
+// DB接続
+try {
+  $pdo = new PDO($dbn, $user, $pwd);
+} catch (PDOException $e) {
+  // PHP_EOL いいかんじに改行
+  echo json_encode(["db error" => "{$e->getMessage()}"]) . PHP_EOL;
+  exit();
+}
+
+// SQL作成&実行 ツイート全て取得
+$sql = 'SELECT text, user_id, created_at FROM tweet_table ORDER BY created_at ASC';
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// echo '<pre>';
+// var_dump($row);
+// echo '</pre>';
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -15,7 +54,7 @@
 
     <!-- ヘッダー -->
     <header>
-      home
+      <?= $welcome ?>
     </header>
 
     <!-- サイドバー -->
@@ -25,7 +64,7 @@
 
     <!-- タイムライン -->
     <div id="display">
-
+      
     </div>
 
     <!-- 掲示板 -->
