@@ -21,7 +21,7 @@ try {
   exit();
 }
 
-// 
+// SQL作成実行取得
 $stmt = $pdo->prepare('SELECT * FROM user_table WHERE email = :email');
 $stmt->bindParam(':email', $_POST['email']);
 $stmt->execute();
