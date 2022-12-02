@@ -18,6 +18,9 @@
 - prepare(作成) / execute(実行) / fetch()取得 説明
   - https://potyfl.hatenablog.com/entry/2019/07/15/185617
 
+- fetch fetchAll 違い
+  - 配列で返ってくるか単体で返ってくるか
+
 - ユーザー登録、ログイン機能 参考サイト
   - https://wagtechblog.com/programing/php-register-login.html#PHP
 
@@ -35,3 +38,6 @@
 
 - php ループ処理
   - https://www.willstyle.co.jp/blog/2173/
+
+- UPDATE 使い方
+  - https://qumeru.com/magazine/444
