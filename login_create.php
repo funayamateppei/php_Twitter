@@ -4,21 +4,13 @@
 // exit();
 session_start();
 
+// DB接続
 require_once('./config.php');
 
 // メールアドレスのバリデーション
 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
   echo '入力された値が不正です。';
   return false;
-}
-
-// DB接続
-try {
-  $pdo = new PDO($dbn, $user, $pwd);
-} catch (PDOException $e) {
-  // PHP_EOL いいかんじに改行
-  echo json_encode(["db error" => "{$e->getMessage()}"]) . PHP_EOL;
-  exit();
 }
 
 // SQL作成実行取得
@@ -32,17 +24,20 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 //emailがDB内に存在しているか確認
 if (!isset($row['email'])) {
-  echo 'メールアドレス又はパスワードが間違っています。';
+  echo 'このメールアドレスは登録されていません。';
   return false;
 }
 //パスワード確認後sessionにメールアドレスとidとusernameを渡す
+// password_verify ハッシュ化されたパスワードと入力されたパスワード比較
+// ↑readmeファイルにサイトリンクあり
 if (password_verify($_POST['password'], $row['pass'])) {
   session_regenerate_id(true); //session_idを新しく生成し、置き換える
   $_SESSION['email'] = $row['email'];
   $_SESSION['id'] = $row['id'];
   $_SESSION['username'] = $row['username'];
 } else {
-  echo 'メールアドレス又はパスワードが間違っています。';
+  echo 'パスワードが間違っています。';
+  return false;
 }
 
 header('Location:./home.php');

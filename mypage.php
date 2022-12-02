@@ -1,14 +1,7 @@
 <?php
 
-require_once('./config.php');
-
 // DB接続
-try {
-  $pdo = new PDO($dbn, $user, $pwd);
-} catch (PDOException $e) {
-  echo json_encode(["db error" => "{$e->getMessage()}"]) . PHP_EOL;
-  exit();
-}
+require_once('./config.php');
 
 // SQL実行作成取得
 $stmt = $pdo->prepare('SELECT * FROM user_table WHERE id = :id');
