@@ -3,6 +3,9 @@
 #
 
 # 参考にしたサイト
+- requireとrequire_onceの違い
+  - https://izadori.net/php-require/
+
 - Emailのバリデーション FILTER_VALIDATE_EMAIL
   - https://qumeru.com/magazine/505
 
