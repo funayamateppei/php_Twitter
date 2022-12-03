@@ -1,10 +1,13 @@
-## 
+### PHP課題
 
-#
-
-# 参考にしたサイト
+## 参考にしたサイト
+# require / require_once
 - requireとrequire_onceの違い
   - https://izadori.net/php-require/
+
+# 
+- return false の使い方
+  - https://okwave.jp/qa/q2676665.html
 
 - Emailのバリデーション FILTER_VALIDATE_EMAIL
   - https://qumeru.com/magazine/505
@@ -20,6 +23,9 @@
 
 - fetch fetchAll 違い
   - 配列で返ってくるか単体で返ってくるか
+
+- fetchモードの種類/説明
+  - https://blog.senseshare.jp/fetch-mode.html
 
 - ユーザー登録、ログイン機能 参考サイト
   - https://wagtechblog.com/programing/php-register-login.html#PHP

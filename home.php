@@ -14,16 +14,8 @@ header('Location:./login.php');
 exit();
 }
 
-require_once('./config.php');
-
 // DB接続
-try {
-  $pdo = new PDO($dbn, $user, $pwd);
-} catch (PDOException $e) {
-  // PHP_EOL いいかんじに改行
-  echo json_encode(["db error" => "{$e->getMessage()}"]) . PHP_EOL;
-  exit();
-}
+require_once('./config.php');
 
 // SQL作成&実行 ツイート全て取得
 $sql = 'SELECT id, text, user_id, username, created_at FROM tweet_table ORDER BY created_at ASC';
@@ -43,7 +35,7 @@ foreach ($row as $v) {
   // exit();
   $htmlElements .= "
       <div class='item'>
-        <img src='./wooden-board-empty-table-top-on-of-blurred-background.jpg' alt='画像'>
+        <img src='./img/人物アイコン.png' alt='画像'>
         <div class='sentence'>
           <div class='who'>
             <p class='username'>{$v['username']}</p>
@@ -83,7 +75,7 @@ foreach ($row as $v) {
     <div class="homeDisplay">
       <!-- サイドバー -->
       <div id="sideBar">
-        マイページとかのメニュー欄
+        <a href="./myPage.php">マイページへ</a>
       </div>
       <!-- タイムライン -->
       <div id="display">

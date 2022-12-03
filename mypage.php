@@ -1,23 +1,46 @@
 <?php
 
-require_once('./config.php');
+session_start();
 
 // DB接続
-try {
-  $pdo = new PDO($dbn, $user, $pwd);
-} catch (PDOException $e) {
-  echo json_encode(["db error" => "{$e->getMessage()}"]) . PHP_EOL;
-  exit();
-}
+require_once('./config.php');
 
 // SQL実行作成取得
 $stmt = $pdo->prepare('SELECT * FROM user_table WHERE id = :id');
-$stmt->bindParam(':id', $_SESSION['id']);
+$stmt->bindValue(':id', $_SESSION['id']);
 $stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$rowUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-var_dump($row);
-exit();
+// var_dump($rowUser);
+// exit();
+
+$stmt = $pdo->prepare('SELECT * FROM tweet_table WHERE user_id = :id');
+$stmt->bindValue(':id', $_SESSION['id']);
+$stmt->execute();
+$rowTweet = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// var_dump($rowTweet);
+// exit();
+
+$htmlElements = '';
+// 繰り返し文で表示する用の文字列を作成
+foreach ($rowTweet as $v) {
+  // var_dump($v['username']);
+  // exit();
+  $htmlElements .= "
+<div class='item'>
+  <img src='./img/人物アイコン.png' alt='画像'>
+  <div class='sentence'>
+    <div class='who'>
+      <p class='username'>{$v['username']}</p>
+      <p class='tweetTime'>{$v['created_at']}</p>
+    </div>
+    <p>{$v['text']}</p>
+  </div>
+  <a href='./tweet_edit.php?id={$v['id']}'>編集ページへ</a>
+</div>
+  ";
+}
 
 ?>
 
@@ -31,6 +54,17 @@ exit();
   <title>Document</title>
 </head>
 <body>
-  
+  <header>マイページ</header>
+  <h1>アカウント情報</h1>
+  <p>ユーザー名</p>
+  <p><?= $rowUser['username'] ?></p>
+  <p>メールアドレス</p>
+  <p><?= $rowUser['email'] ?></p>
+
+  <p>tweet</p>
+  <div class="display">
+    <?= $htmlElements ?>
+  </div>
+
 </body>
 </html>

@@ -1,14 +1,7 @@
 <?php
 
-require_once('./config.php');
-
 // DB接続
-try {
-  $pdo = new PDO($dbn, $user, $pwd);
-} catch (PDOException $e) {
-  echo json_encode(["db error" => "{$e->getMessage()}"]);
-  exit();
-}
+require_once('./config.php');
 
 // パスワードと確認用パスワードのバリデーション
 if ($_POST['password'] !== $_POST['cfmpassword']) {
@@ -32,7 +25,8 @@ if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,15}+\z/i', $_POST['password'])
 
 $username = $_POST['username'];
 
-//データベース内のメールアドレスを取得
+// 入力したメアドと一致するデータベース内のメールアドレスを取得
+// 同じメールアドレスを保存させないために！
 $stmt = $pdo->prepare("SELECT email from user_table where email = ?");
 $stmt->execute([$email]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);

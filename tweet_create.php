@@ -14,15 +14,8 @@ if (
 
 $text = $_POST['text'];
 
-require_once('./config.php');
-
 // DB接続
-try {
-  $pdo = new PDO($dbn, $user, $pwd);
-} catch (PDOException $e) {
-  echo json_encode(["db error" => "{$e->getMessage()}"]);
-  exit();
-}
+require_once('./config.php');
 
 // SQL作成&実行
 $sql = 'INSERT INTO tweet_table (id, text, user_id, username, created_at, updated_at) VALUES (NULL, :text, :user_id, :username, now(), now())';
