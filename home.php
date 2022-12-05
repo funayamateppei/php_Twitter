@@ -40,15 +40,16 @@ foreach ($row as $v) {
   // 返信数を数える
   $replyCount = count($reply);
 
-  // var_dump($v['username']);
-  // exit();
+  // ツイートした日時のフォーマットを変更
+  $date = date('Y年n月j日 H:i', strtotime($v['created_at']));
+
   $htmlElements .= "
       <div class='item'>
         <img src='./img/人物アイコン.png' alt='画像'>
         <div class='sentence'>
           <div class='who'>
             <p class='username'>{$v['username']}</p>
-            <p class='tweetTime'>{$v['created_at']}</p>
+            <p class='tweetTime'>{$date}</p>
             <p>返信数:{$replyCount}</p>
           </div>
           <p>{$v['text']}</p>
