@@ -66,6 +66,7 @@ if (count($row2) !== 0) {
 <body>
 
   <div id="display">
+    <a href="./home.php">戻る</a>
     <div class='item'>
       <img src='./img/人物アイコン.png' alt='画像'>
       <div class='sentence'>

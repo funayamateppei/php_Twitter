@@ -43,6 +43,7 @@ $htmlElements = '';
 <body>
 
   <div id="display">
+    <a href="./myPage.php">戻る</a>
     <div class='item'>
       <img src='./img/人物アイコン.png' alt='画像'>
       <div class='sentence'>

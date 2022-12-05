@@ -58,6 +58,7 @@ foreach ($rowTweet as $v) {
 </head>
 
 <body>
+  <a href="./home.php">戻る</a>
   <header>マイページ</header>
   <h1>アカウント情報</h1>
   <div class="headerImg">
