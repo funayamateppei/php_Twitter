@@ -9,6 +9,9 @@ require_once('./config.php');
 
 $id = $_GET['id'];
 
+// var_dump($id);
+// exit();
+
 // SQL実行
 $sql = 'SELECT * FROM tweet_table WHERE id = :id';
 $stmt = $pdo->prepare($sql);

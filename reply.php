@@ -86,7 +86,7 @@ if (count($row2) !== 0) {
     </form>
   </div>
 
-  <div class="replyTweet">
+  <div id="replyTweet">
     <!-- reply tweet を表示する -->
     <?= $htmlElements ?>
   </div>
