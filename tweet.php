@@ -24,6 +24,34 @@ $row1 = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $htmlElements = '';
 
+$sqlReply = 'SELECT * FROM reply_table WHERE tweet_id = :id ORDER BY created_at ASC';
+$stmtReply = $pdo->prepare($sqlReply);
+$stmtReply->bindValue(':id', $id, PDO::PARAM_INT);
+$stmtReply->execute();
+$row2 = $stmtReply->fetchAll(PDO::FETCH_ASSOC);
+
+// var_dump($row2);
+// exit();
+
+$htmlElements = '';
+
+if (count($row2) !== 0) {
+  foreach ($row2 as $v) {
+    $htmlElements .= "
+      <div class='item'>
+        <img src='./img/人物アイコン.png' alt='画像'>
+        <div class='sentence'>
+          <div class='who'>
+            <p class='username'> {$v['username']} </p>
+            <p class='tweetTime'> {$v['created_at']} </p>
+          </div>
+          <p> {$v['text']} </p>
+        </div>
+      </div>
+    ";
+  }
+}
+
 
 
 ?>
@@ -58,8 +86,9 @@ $htmlElements = '';
     </div>
   </div>
 
-  <div class="replyTweet">
+  <div id="replyTweet">
     <!-- reply tweet を表示する -->
+    <?=$htmlElements?>
   </div>
 
 </body>
