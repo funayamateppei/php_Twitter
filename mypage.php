@@ -36,8 +36,8 @@ foreach ($rowTweet as $v) {
       <p class='tweetTime'>{$v['created_at']}</p>
     </div>
     <p>{$v['text']}</p>
+    <a href='./tweet.php?id={$v['id']}'>投稿画面へ</a>
   </div>
-  <a href='./tweet_edit.php?id={$v['id']}'>編集ページへ</a>
 </div>
   ";
 }
@@ -47,24 +47,40 @@ foreach ($rowTweet as $v) {
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css" />
+  <link rel="stylesheet" href="./css/mypage.css">
   <title>Document</title>
 </head>
+
 <body>
   <header>マイページ</header>
   <h1>アカウント情報</h1>
-  <p>ユーザー名</p>
-  <p><?= $rowUser['username'] ?></p>
-  <p>メールアドレス</p>
-  <p><?= $rowUser['email'] ?></p>
+  <div class="headerImg">
+    <!-- ヘッダー画像を挿入 -->
+    <!-- 設定されていないならグレーの画面を表示する -->
+  </div>
+  <div class="topImg">
+    <!-- トプ画を表示する -->
+    <!-- 登録されていないなら初期のアイコンを表示する -->
+  </div>
+  <div class="userInfo">
+    <p>ユーザー名</p>
+    <p><?= $rowUser['username'] ?></p>
+    <p>メールアドレス</p>
+    <p><?= $rowUser['email'] ?></p>
+    <p>フリーテキストを表示/登録されていないなら何も表示しない</p>
+  </div>
 
-  <p>tweet</p>
-  <div class="display">
+
+  <div id="display">
     <?= $htmlElements ?>
   </div>
 
 </body>
+
 </html>

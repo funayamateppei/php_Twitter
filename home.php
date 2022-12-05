@@ -42,6 +42,7 @@ foreach ($row as $v) {
             <p class='tweetTime'>{$v['created_at']}</p>
           </div>
           <p>{$v['text']}</p>
+          <a href='./reply.php?id={$v['id']}'>投稿画面へ</a>
         </div>
       </div>
         ";
@@ -79,7 +80,7 @@ foreach ($row as $v) {
       </div>
       <!-- タイムライン -->
       <div id="display">
-        <?= $htmlElements ?>
+          <?= $htmlElements ?>
       </div>
       <!-- 掲示板 -->
       <div id="bbs">
