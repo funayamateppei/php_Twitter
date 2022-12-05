@@ -27,10 +27,19 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // var_dump($row);
 // echo '</pre>';
 
-
 $htmlElements = '';
 // 繰り返し文で表示する用の文字列を作成
 foreach ($row as $v) {
+  // 返信の数を数える
+  $sqlReply = 'SELECT * FROM reply_table WHERE tweet_id=:id';
+  $stmtReply = $pdo->prepare($sqlReply);
+  $stmtReply->bindValue(':id', $v['id'], PDO::PARAM_INT);
+  $stmtReply->execute();
+  $reply = $stmtReply->fetchAll(PDO::FETCH_ASSOC);
+
+  // 返信数を数える
+  $replyCount = count($reply);
+
   // var_dump($v['username']);
   // exit();
   $htmlElements .= "
@@ -40,6 +49,7 @@ foreach ($row as $v) {
           <div class='who'>
             <p class='username'>{$v['username']}</p>
             <p class='tweetTime'>{$v['created_at']}</p>
+            <p>返信数:{$replyCount}</p>
           </div>
           <p>{$v['text']}</p>
           <a href='./reply.php?id={$v['id']}'>投稿画面へ</a>

@@ -47,3 +47,6 @@
 
 - UPDATE 使い方
   - https://qumeru.com/magazine/444
+
+- count($~~) JSでいう.lengthみたいなやつ 配列の数を数える
+  - https://magazine.techacademy.jp/magazine/11620
