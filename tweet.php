@@ -52,6 +52,7 @@ $htmlElements = '';
           <p class='tweetTime'> <?= $row1['created_at'] ?></p>
         </div>
         <p><?= $row1['text'] ?></p>
+        <a href="./delete/tweet_delete_cfm.php?id=<?=$id?>">削除</a>
         <a href='./tweet_edit.php?id=<?=$row1['id']?>'>編集画面へ</a>
       </div>
     </div>
