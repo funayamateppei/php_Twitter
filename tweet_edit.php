@@ -36,7 +36,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
   <form action="./tweet_update.php" method="POST">
     <fieldset>
       <legend>DB連携型todoリスト（編集画面）</legend>
-      <a href="todo_read.php">一覧画面</a>
+      <a href="./tweet.php?id=<?=$id?>">戻る</a>
       <div>
         text: <input type="text" name="text" value="<?= $row['text'] ?>">
       </div>
