@@ -70,22 +70,30 @@ foreach ($rowTweet as $v) {
 </head>
 
 <body>
-  <a href="./home.php">戻る</a>
-  <header>マイページ</header>
-  <h1>アカウント情報</h1>
+  <header>
+    <a href="./home.php">戻る</a>
+    マイページ
+  </header>
+
+
   <div class="headerImg">
     <!-- ヘッダー画像を挿入 -->
     <!-- 設定されていないならグレーの画面を表示する -->
   </div>
+
   <div class="topImg">
     <!-- トプ画を表示する -->
     <!-- 登録されていないなら初期のアイコンを表示する -->
   </div>
+
   <div class="userInfo">
+
     <p>ユーザー名</p>
     <p><?= $rowUser['username'] ?></p>
+
     <p>メールアドレス</p>
     <p><?= $rowUser['email'] ?></p>
+
     <p>フリーテキストを表示/登録されていないなら何も表示しない</p>
   </div>
 
