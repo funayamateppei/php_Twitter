@@ -2,8 +2,10 @@
 
 session_start();
 
+require_once('./function/login_function.php');
+
 // DB接続
-require_once('./config.php');
+require_once('./function/config.php');
 
 // SQL実行作成取得
 $stmt = $pdo->prepare('SELECT * FROM user_table WHERE id = :id');

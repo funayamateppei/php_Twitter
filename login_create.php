@@ -5,7 +5,7 @@
 session_start();
 
 // DB接続
-require_once('./config.php');
+require_once('./function/config.php');
 
 // メールアドレスのバリデーション
 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -32,6 +32,7 @@ if (!isset($row['email'])) {
 // ↑readmeファイルにサイトリンクあり
 if (password_verify($_POST['password'], $row['pass'])) {
   session_regenerate_id(true); //session_idを新しく生成し、置き換える
+  $_SESSION['session_id'] = session_id();
   $_SESSION['email'] = $row['email'];
   $_SESSION['id'] = $row['id'];
   $_SESSION['username'] = $row['username'];

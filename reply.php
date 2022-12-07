@@ -3,7 +3,9 @@
 // var_dump($_GET);
 // exit();
 
-require_once('./config.php');
+require_once('./function/login_function.php');
+
+require_once('./function/config.php');
 
 $id = $_GET['id'];
 

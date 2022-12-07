@@ -6,6 +6,8 @@ session_start();
 // var_dump($_SESSION);
 // exit();
 
+require_once('./function/login_function.php');
+
 // 一応、もしsessionが設定されていないいならログインページにとばす
 if(isset($_SESSION)){
 $welcome = "ようこそ、".$_SESSION['username']."さん！";
@@ -15,7 +17,7 @@ exit();
 }
 
 // DB接続
-require_once('./config.php');
+require_once('./function/config.php');
 
 // SQL作成&実行 ツイート全て取得
 $sql = 'SELECT id, text, user_id, username, created_at FROM tweet_table ORDER BY created_at ASC';
@@ -87,12 +89,20 @@ foreach ($row as $v) {
     <div class="homeDisplay">
       <!-- サイドバー -->
       <div id="sideBar">
-        <a href="./myPage.php">マイページへ</a>
+        <div id="myPage" class="bar">
+          <a href="./myPage.php">マイページへ</a>
+        </div>
+
+        <div id="logout" class="bar">
+          <a href="./logout/logout.php">ログアウト</a>
+        </div>
       </div>
+
       <!-- タイムライン -->
       <div id="display">
           <?= $htmlElements ?>
       </div>
+
       <!-- 掲示板 -->
       <div id="bbs">
         集り募集の掲示板みたいなやつ

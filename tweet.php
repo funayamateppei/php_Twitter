@@ -5,7 +5,9 @@
 
 session_start();
 
-require_once('./config.php');
+require_once('./function/login_function.php');
+
+require_once('./function/config.php');
 
 $id = $_GET['id'];
 

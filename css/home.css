@@ -27,14 +27,15 @@ body {
 /* ヘッダー */
 header {
   position: fixed;
-  top: 0;
-  right: 0;
-  width: 85%;
+  /* top: 0;
+  right: 0; */
+  width: 100%;
   height: 50px;
   background-color: lightcyan;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 
@@ -43,7 +44,34 @@ header {
   position: fixed;
   width: 15%;
   height: 100%;
+  background-color: rgb(70, 70, 70);
+}
+
+#myPage {
+  margin-top: 50px;
+}
+
+.bar {
+  width: 100%;
+  height: 50px;
   background-color: gray;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: .3s;
+}
+.bar:hover {
+  background-color: rgb(70, 70, 70);
+  transition: .3s;
+}
+
+.bar a {
+  display: inline-block;
+  width: 100%;
+  line-height: 100%;
+  text-align: center;
 }
 
 
