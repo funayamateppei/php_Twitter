@@ -94,7 +94,7 @@ foreach ($row as $v) {
         </div>
 
         <div id="logout" class="bar">
-          <a href="./logout/logout.php">ログアウト</a>
+          <a href="./logout.php">ログアウト</a>
         </div>
       </div>
 
