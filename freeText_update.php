@@ -38,7 +38,7 @@ if (!$result) {
   $sqlUpdate = 'UPDATE myPage_table SET freetext=:freetext, updated_at=now() WHERE user_id=:user_id';
   $stmtUpdate = $pdo->prepare($sqlUpdate);
   $stmtUpdate->bindValue(':freetext', $text, PDO::PARAM_STR);
-  $stmtUpdate->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+  $stmtUpdate->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
   $stmtUpdate->execute();
 }
 

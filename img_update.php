@@ -19,7 +19,7 @@ $imgUrl = '';
 if (!empty($_FILES)) {
   // $_FILES['image']['name']もとのファイルの名前
   // $_FILES['image']['tmp_name']サーバーにあるファイルの名前
-  $filename = $_SESSION['id'] . '-' . Date('Ymdhis');
+  $filename = uniqid();
   $uploaded_path = './images/' . $filename;
   $imgUrl .= $uploaded_path;
   move_uploaded_file($_FILES['img']['tmp_name'], $uploaded_path);
@@ -37,6 +37,8 @@ $stmt->execute();
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$row) {
+  // fopen()
+
   $sqlInsert = 'INSERT INTO myPage_table (id, user_id, img, freetext, created_at, updated_at) VALUES (NULL, :user_id, :img, :freeText, now(), now())';
   $stmtInsert = $pdo->prepare($sqlInsert);
   $stmtInsert->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);

@@ -115,6 +115,7 @@ $topImg = '';
           <button class="none">画像更新</button>
         </form>
       </div>
+
       <div class="userInfo">
         <div class="username">
           <p>ユーザー名</p>
@@ -126,6 +127,7 @@ $topImg = '';
         </div>
       </div>
     </div>
+
     <div class="free">
       <p>
         <!-- php フリーテキスト表示 -->
