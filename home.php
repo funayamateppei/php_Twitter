@@ -73,6 +73,17 @@ foreach ($row as $v) {
   }
 
   // 投稿が何回いいねされているかカウントして表示
+  $sqlLike = 'SELECT like_check FROM like_table WHERE tweet_id=:tweet_id';
+  $stmtLike = $pdo->prepare($sqlLike);
+  $stmtLike->bindValue(':tweet_id', $v['id'], PDO::PARAM_INT);
+  $stmtLike->execute();
+  $like = $stmtLike->fetchAll(PDO::FETCH_ASSOC);
+  $likeCount = 0;
+  foreach ($like as $i) {
+    if ($i['like_check'] === 1) {
+      $likeCount += 1;
+    }
+  }
 
   // ツイートした日時のフォーマットを変更
   $date = date('Y年n月j日 H:i', strtotime($v['created_at']));
@@ -90,7 +101,7 @@ foreach ($row as $v) {
             <a href='./like.php?id={$v['id']}'>
               <img class='img' src='{$likeSrc}'>
             </a>
-            <p>3</p>
+            <p>{$likeCount}</p>
             <a class='anchor' href='./reply.php?id={$v['id']}'>投稿画面へ</a>
           </div>
         </div>
