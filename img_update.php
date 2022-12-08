@@ -1,6 +1,7 @@
 <?php
 
-var_dump($_POST);
-exit();
+// var_dump($_POST);
+// exit();
+
 
 ?>

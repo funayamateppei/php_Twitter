@@ -7,7 +7,7 @@ require_once('./function/login_function.php');
 // DB接続
 require_once('./function/config.php');
 
-// SQL実行作成取得
+// ログインしているユーザー情報を取得
 $stmt = $pdo->prepare('SELECT * FROM user_table WHERE id = :id');
 $stmt->bindValue(':id', $_SESSION['id']);
 $stmt->execute();
@@ -16,6 +16,7 @@ $rowUser = $stmt->fetch(PDO::FETCH_ASSOC);
 // var_dump($rowUser);
 // exit();
 
+// ログインしているユーザーの投稿を全て取得
 $stmt = $pdo->prepare('SELECT * FROM tweet_table WHERE user_id = :id');
 $stmt->bindValue(':id', $_SESSION['id']);
 $stmt->execute();
@@ -23,6 +24,24 @@ $rowTweet = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // var_dump($rowTweet);
 // exit();
+
+// フリーテキストとTOP画像を取得
+$stmtMyPage=$pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
+$stmtMyPage->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+$stmtMyPage->execute();
+$rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
+
+$freeText = '';
+if ($rowMyPage['freetext'] !== '') {
+  $freeText .= $rowMyPage['freetext'];
+}
+
+$img = '';
+if ($rowMyPage['img'] === '') {
+  $img .= './img/人物アイコン.png';
+} else {
+  $img .= $rowMyPage['img'];
+}
 
 $htmlElements = '';
 // 繰り返し文で表示する用の文字列を作成
@@ -42,7 +61,7 @@ foreach ($rowTweet as $v) {
 
   $htmlElements .= "
     <div class='item'>
-      <img src='./img/人物アイコン.png' alt='画像'>
+      <img src='{$img}' alt='画像'>
       <div class='sentence'>
         <div class='who'>
           <p class='username'>{$v['username']}</p>
@@ -89,12 +108,10 @@ $topImg = '';
         <form action="./img_update.php" method="POST">
           <input id="topImg" type="file" name="img" accept=".jpg, .jpeg, .png">
           <label for="topImg">
-            <img src="./img/人物アイコン.png" alt="TOP画像">
+            <img src="<?= $img ?>" alt="TOP画像">
           </label>
           <button class="none">画像保存</button>
         </form>
-        <!-- トプ画を表示する -->
-        <!-- 登録されていないなら初期のアイコンを表示する -->
       </div>
       <div class="userInfo">
         <div class="username">
@@ -110,6 +127,7 @@ $topImg = '';
     <div class="free">
       <p>
         <!-- php フリーテキスト表示 -->
+        <?= $freeText ?>
       </p>
       <img id="freeText" src="./img/消しゴム付きの鉛筆のアイコン素材.png" alt="logo">
     </div>
@@ -151,6 +169,13 @@ $topImg = '';
       $('#free').fadeOut();
       $('#free form').fadeOut();
       $('#free form textarea').fadeOut();
+    })
+
+    $('#free button').on('click', () => {
+      if ($('#tweet').val() === '') {
+        alert('入力してください。');
+        return
+      }
     })
   </script>
 
