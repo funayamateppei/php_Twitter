@@ -39,9 +39,24 @@ $htmlElements = '';
 
 if (count($row2) !== 0) {
   foreach ($row2 as $v) {
+    // TOP画像を取得
+    $stmtMyPage = $pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
+    $stmtMyPage->bindValue(':user_id', $v['user_id'], PDO::PARAM_INT);
+    $stmtMyPage->execute();
+    $rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
+    // 投稿１つ１つでsrcを作成する（見つからなかったor空白orURLあり）
+    $img = '';
+    if (!$rowMyPage) {
+      $img .= './img/人物アイコン.png';
+    } else if ($rowMyPage['img'] === '') {
+      $img .= './img/人物アイコン.png';
+    } else {
+      $img .= $rowMyPage['img'];
+    }
+
     $htmlElements .= "
       <div class='item'>
-        <img src='./img/人物アイコン.png' alt='画像'>
+        <img src='{$img}' alt='画像'>
         <div class='sentence'>
           <div class='who'>
             <p class='username'> {$v['username']} </p>
@@ -53,6 +68,21 @@ if (count($row2) !== 0) {
     ";
   }
 }
+
+$imgUrl = '';
+    // TOP画像を取得
+    $stmtMyPage = $pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
+    $stmtMyPage->bindValue(':user_id', $v['user_id'], PDO::PARAM_INT);
+    $stmtMyPage->execute();
+    $rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
+    // 投稿１つ１つでsrcを作成する（見つからなかったor空白orURLあり）
+    if (!$rowMyPage) {
+      $imgUrl .= './img/人物アイコン.png';
+    } else if ($rowMyPage['img'] === '') {
+      $imgUrl .= './img/人物アイコン.png';
+    } else {
+      $imgUrl .= $rowMyPage['img'];
+    }
 
 
 
@@ -75,15 +105,17 @@ if (count($row2) !== 0) {
   <div id="display">
     <a href="./myPage.php">戻る</a>
     <div class='item'>
-      <img src='./img/人物アイコン.png' alt='画像'>
+      <img src='<?= $imgUrl ?>' alt='画像'>
       <div class='sentence'>
         <div class='who'>
           <p class='username'> <?= $row1['username'] ?> </p>
           <p class='tweetTime'> <?= $row1['created_at'] ?></p>
         </div>
         <p><?= $row1['text'] ?></p>
-        <a href="./delete/tweet_delete_cfm.php?id=<?=$id?>">削除</a>
-        <a href='./tweet_edit.php?id=<?=$row1['id']?>'>編集画面へ</a>
+        <div class="flex">
+          <a href="./delete/tweet_delete_cfm.php?id=<?=$id?>">DELETE</a>
+          <a href='./tweet_edit.php?id=<?=$row1['id']?>'>EDIT</a>
+        </div>
       </div>
     </div>
   </div>

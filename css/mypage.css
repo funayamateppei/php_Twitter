@@ -196,11 +196,13 @@ header {
 #display .item .username {
   color: white;
   font-weight: bold;
+  margin: 0;
 }
 
 #display .item .tweetTime {
   font-size: small;
   color: rgb(87, 86, 86);
+  margin: 0 10px;
 }
 
 #display .item img {
@@ -220,4 +222,8 @@ header {
   box-shadow: 0 3px gray;
   display: inline-block;
   margin-left: 80%;
+}
+
+#display .item .replyCount {
+  font-size: small;
 }

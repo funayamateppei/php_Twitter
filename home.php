@@ -65,7 +65,7 @@ foreach ($row as $v) {
           <div class='who'>
             <p class='username'>{$v['username']}</p>
             <p class='tweetTime'>{$date}</p>
-            <p>返信数:{$replyCount}</p>
+            <p class='replyCount'>返信数:{$replyCount}</p>
           </div>
           <p>{$v['text']}</p>
           <a href='./reply.php?id={$v['id']}'>投稿画面へ</a>

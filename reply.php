@@ -2,6 +2,7 @@
 
 // var_dump($_GET);
 // exit();
+session_start();
 
 require_once('./function/login_function.php');
 
@@ -36,9 +37,24 @@ $htmlElements = '';
 
 if (count($row2) !== 0) {
   foreach ($row2 as $v) {
+    // TOP画像を取得
+    $stmtMyPage = $pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
+    $stmtMyPage->bindValue(':user_id', $v['user_id'], PDO::PARAM_INT);
+    $stmtMyPage->execute();
+    $rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
+    // 投稿１つ１つでsrcを作成する（見つからなかったor空白orURLあり）
+    $img = '';
+    if (!$rowMyPage) {
+      $img .= './img/人物アイコン.png';
+    } else if ($rowMyPage['img'] === '') {
+      $img .= './img/人物アイコン.png';
+    } else {
+      $img .= $rowMyPage['img'];
+    }
+
     $htmlElements .= "
       <div class='item'>
-        <img src='./img/人物アイコン.png' alt='画像'>
+        <img src='{$img}' alt='画像'>
         <div class='sentence'>
           <div class='who'>
             <p class='username'> {$v['username']} </p>
@@ -49,6 +65,21 @@ if (count($row2) !== 0) {
       </div>
     ";
   }
+}
+
+$imgUrl = '';
+// TOP画像を取得
+$stmtMyPage = $pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
+$stmtMyPage->bindValue(':user_id', $v['user_id'], PDO::PARAM_INT);
+$stmtMyPage->execute();
+$rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
+// 投稿１つ１つでsrcを作成する（見つからなかったor空白orURLあり）
+if (!$rowMyPage) {
+  $imgUrl .= './img/人物アイコン.png';
+} else if ($rowMyPage['img'] === '') {
+  $imgUrl .= './img/人物アイコン.png';
+} else {
+  $imgUrl .= $rowMyPage['img'];
 }
 
 ?>
@@ -70,7 +101,7 @@ if (count($row2) !== 0) {
   <div id="display">
     <a href="./home.php">戻る</a>
     <div class='item'>
-      <img src='./img/人物アイコン.png' alt='画像'>
+      <img src='<?= $imgUrl ?>' alt='画像'>
       <div class='sentence'>
         <div class='who'>
           <p class='username'> <?= $row1['username'] ?> </p>
