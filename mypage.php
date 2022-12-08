@@ -42,6 +42,8 @@ if ($rowMyPage['img'] === '') {
 } else {
   $img .= $rowMyPage['img'];
 }
+// var_dump($img);
+// exit();
 
 $htmlElements = '';
 // 繰り返し文で表示する用の文字列を作成
@@ -105,12 +107,12 @@ $topImg = '';
   <div class="user">
     <div class="flex">
       <div class="topImg">
-        <form action="./img_update.php" method="POST">
+        <form action="./img_update.php" method="POST" enctype="multipart/form-data">
           <input id="topImg" type="file" name="img" accept=".jpg, .jpeg, .png">
           <label for="topImg">
             <img src="<?= $img ?>" alt="TOP画像">
           </label>
-          <button class="none">画像保存</button>
+          <button class="none">画像更新</button>
         </form>
       </div>
       <div class="userInfo">

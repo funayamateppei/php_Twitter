@@ -16,6 +16,8 @@ session_start();
 
 require_once('./function/config.php');
 
+// もしmyPage_tableにログインしている人の情報があればUPDATE
+// なければINSERTで条件分岐するためにまず探す作業
 $sqlSelect = 'SELECT * FROM myPage_table WHERE user_id = :user_id';
 $stmt = $pdo->prepare($sqlSelect);
 $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
