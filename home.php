@@ -56,11 +56,29 @@ foreach ($row as $v) {
     $img .= $rowMyPage['img'];
   }
 
+  // 自分がいいねしているかどうか判断
+  $sqlLike = 'SELECT like_check FROM like_table WHERE user_id=:user_id AND tweet_id=:tweet_id';
+  $stmtLike = $pdo->prepare($sqlLike);
+  $stmtLike->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+  $stmtLike->bindValue(':tweet_id', $v['id'], PDO::PARAM_INT);
+  $stmtLike->execute();
+  $like = $stmtLike->fetch(PDO::FETCH_ASSOC);
+  $likeSrc = '';
+  if (!$like) {
+    $likeSrc .= './img/ハートマークの無料アイコン素材 11.png';
+  } else if ($like['like_check'] === 1) {
+    $likeSrc .= './img/キラっとしたハートの無料アイコン素材 2.png';
+  } else {
+    $likeSrc .= './img/ハートマークの無料アイコン素材 11.png';
+  }
+
+  // 投稿が何回いいねされているかカウントして表示
+
   // ツイートした日時のフォーマットを変更
   $date = date('Y年n月j日 H:i', strtotime($v['created_at']));
   $htmlElements .= "
       <div class='item'>
-        <img src='{$img}' alt='画像'>
+        <img class='logo' src='{$img}' alt='画像'>
         <div class='sentence'>
           <div class='who'>
             <p class='username'>{$v['username']}</p>
@@ -68,7 +86,13 @@ foreach ($row as $v) {
             <p class='replyCount'>返信数:{$replyCount}</p>
           </div>
           <p>{$v['text']}</p>
-          <a href='./reply.php?id={$v['id']}'>投稿画面へ</a>
+          <div class='flex'>
+            <a href='./like.php?id={$v['id']}'>
+              <img class='img' src='{$likeSrc}'>
+            </a>
+            <p>3</p>
+            <a class='anchor' href='./reply.php?id={$v['id']}'>投稿画面へ</a>
+          </div>
         </div>
       </div>
         ";

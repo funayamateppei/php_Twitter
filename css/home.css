@@ -118,7 +118,7 @@ header {
   font-size: small;
 }
 
-#display .item img {
+#display .item .logo {
   width: 40px;
   height: 40px;
   object-fit: cover;
@@ -127,15 +127,34 @@ header {
   background-color: white;
 }
 
-#display .item a {
+#display .item .img {
+  background-color: #68a4d9;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+#display .item .anchor {
   background-color: rgb(32, 176, 224);
   color: white;
   padding: 3px;
   border-radius: 4px;
   box-shadow: 0 3px gray;
   display: inline-block;
-  margin-left: 80%;
+  margin-left: 10px;
   font-size: 14px;
+}
+
+.flex {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.flex p {
+  font-size: small;
+  padding-top: 2px;
+  padding-left: 5px;
 }
 
 
