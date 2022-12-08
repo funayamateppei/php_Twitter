@@ -111,6 +111,11 @@ header {
 #display .item .tweetTime {
   font-size: small;
   color: rgb(87, 86, 86);
+  margin: 0 10px;
+}
+
+#display .item .replyCount {
+  font-size: small;
 }
 
 #display .item img {

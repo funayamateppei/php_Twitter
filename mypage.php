@@ -26,7 +26,7 @@ $rowTweet = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // exit();
 
 // フリーテキストとTOP画像を取得
-$stmtMyPage=$pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
+$stmtMyPage = $pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
 $stmtMyPage->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
 $stmtMyPage->execute();
 $rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
@@ -37,13 +37,13 @@ if ($rowMyPage) {
 }
 
 $img = '';
-    if (!$rowMyPage) {
-      $img .= './img/人物アイコン.png';
-    } else if ($rowMyPage['img'] === '') {
-      $img .= './img/人物アイコン.png';
-    } else {
-      $img .= $rowMyPage['img'];
-    }
+if (!$rowMyPage) {
+  $img .= './img/人物アイコン.png';
+} else if ($rowMyPage['img'] === '') {
+  $img .= './img/人物アイコン.png';
+} else {
+  $img .= $rowMyPage['img'];
+}
 // var_dump($img);
 // exit();
 
@@ -70,7 +70,7 @@ foreach ($rowTweet as $v) {
         <div class='who'>
           <p class='username'>{$v['username']}</p>
           <p class='tweetTime'>{$date}</p>
-          <p>返信数:{$replyCount}</p>
+          <p class='replyCount'>返信数 : {$replyCount}</p>
         </div>
         <p>{$v['text']}</p>
         <a href='./tweet.php?id={$v['id']}'>投稿画面へ</a>
