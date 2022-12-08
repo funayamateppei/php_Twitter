@@ -41,20 +41,25 @@ foreach ($rowTweet as $v) {
   $date = date('Y年n月j日 H:i', strtotime($v['created_at']));
 
   $htmlElements .= "
-<div class='item'>
-  <img src='./img/人物アイコン.png' alt='画像'>
-  <div class='sentence'>
-    <div class='who'>
-      <p class='username'>{$v['username']}</p>
-      <p class='tweetTime'>{$date}</p>
-      <p>返信数:{$replyCount}</p>
+    <div class='item'>
+      <img src='./img/人物アイコン.png' alt='画像'>
+      <div class='sentence'>
+        <div class='who'>
+          <p class='username'>{$v['username']}</p>
+          <p class='tweetTime'>{$date}</p>
+          <p>返信数:{$replyCount}</p>
+        </div>
+        <p>{$v['text']}</p>
+        <a href='./tweet.php?id={$v['id']}'>投稿画面へ</a>
+      </div>
     </div>
-    <p>{$v['text']}</p>
-    <a href='./tweet.php?id={$v['id']}'>投稿画面へ</a>
-  </div>
-</div>
   ";
 }
+
+
+// TOP画像を登録してあれば登録してあるものをなければデフォルトを表示
+$topImg = '';
+
 
 ?>
 
@@ -72,37 +77,82 @@ foreach ($rowTweet as $v) {
 </head>
 
 <body>
+  <a id='homeBack' href="./home.php">戻る</a>
+
   <header>
-    <a href="./home.php">戻る</a>
     マイページ
   </header>
 
-
-  <div class="headerImg">
-    <!-- ヘッダー画像を挿入 -->
-    <!-- 設定されていないならグレーの画面を表示する -->
+  <div class="user">
+    <div class="flex">
+      <div class="topImg">
+        <form action="./img_update.php" method="POST">
+          <input id="topImg" type="file" name="img" accept=".jpg, .jpeg, .png">
+          <label for="topImg">
+            <img src="./img/人物アイコン.png" alt="TOP画像">
+          </label>
+          <button class="none">画像保存</button>
+        </form>
+        <!-- トプ画を表示する -->
+        <!-- 登録されていないなら初期のアイコンを表示する -->
+      </div>
+      <div class="userInfo">
+        <div class="username">
+          <p>ユーザー名</p>
+          <p><?= $rowUser['username'] ?></p>
+        </div>
+        <div class="email">
+          <p>メールアドレス</p>
+          <p><?= $rowUser['email'] ?></p>
+        </div>
+      </div>
+    </div>
+    <div class="free">
+      <p>
+        <!-- php フリーテキスト表示 -->
+      </p>
+      <img id="freeText" src="./img/消しゴム付きの鉛筆のアイコン素材.png" alt="logo">
+    </div>
   </div>
 
-  <div class="topImg">
-    <!-- トプ画を表示する -->
-    <!-- 登録されていないなら初期のアイコンを表示する -->
-  </div>
-
-  <div class="userInfo">
-
-    <p>ユーザー名</p>
-    <p><?= $rowUser['username'] ?></p>
-
-    <p>メールアドレス</p>
-    <p><?= $rowUser['email'] ?></p>
-
-    <p>フリーテキストを表示/登録されていないなら何も表示しない</p>
+  <!-- フリーテキストフォーム画面 -->
+  <div id="free">
+    <form action="./freeText_update.php" method="POST">
+      <img id="Close" src="./img/ノーマルの太さのバツアイコン.png" alt="logo">
+      <textarea name="text" id="tweet" cols="50" rows="15"></textarea>
+      <button>更新</button>
+    </form>
   </div>
 
 
   <div id="display">
     <?= $htmlElements ?>
   </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script>
+    // 画像ファイル選択時にだけ保存ボタンを
+    $('#topImg').change(() => {
+      if ($('#topImg').val() === '') {
+        $('.none').hide();
+      } else {
+        $('.none').show();
+      }
+    })
+
+    $('#freeText').on('click', () => {
+      $('#free').fadeIn();
+      $('#free form').fadeIn();
+      $('#free form textarea').fadeIn();
+    })
+
+    $('#Close').on('click', () => {
+      $('#free').fadeOut();
+      $('#free form').fadeOut();
+      $('#free form textarea').fadeOut();
+    })
+  </script>
 
 </body>
 

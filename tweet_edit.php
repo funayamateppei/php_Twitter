@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once('./function/login_function.php');
 
 // DB接続
