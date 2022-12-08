@@ -32,16 +32,18 @@ $stmtMyPage->execute();
 $rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
 
 $freeText = '';
-if ($rowMyPage['freetext'] !== '') {
+if ($rowMyPage) {
   $freeText .= $rowMyPage['freetext'];
 }
 
 $img = '';
-if ($rowMyPage['img'] === '') {
-  $img .= './img/人物アイコン.png';
-} else {
-  $img .= $rowMyPage['img'];
-}
+    if (!$rowMyPage) {
+      $img .= './img/人物アイコン.png';
+    } else if ($rowMyPage['img'] === '') {
+      $img .= './img/人物アイコン.png';
+    } else {
+      $img .= $rowMyPage['img'];
+    }
 // var_dump($img);
 // exit();
 
