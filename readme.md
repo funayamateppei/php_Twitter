@@ -1,5 +1,3 @@
-### PHP課題
-
 ## 参考にしたサイト
 # require / require_once
 - requireとrequire_onceの違い

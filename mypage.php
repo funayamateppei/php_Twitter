@@ -35,7 +35,7 @@ $freeText = '';
 if ($rowMyPage) {
   $freeText .= $rowMyPage['freetext'];
 }
-
+// もし登録されているなら登録されている画像 それ以外はデフォ画像
 $img = '';
 if (!$rowMyPage) {
   $img .= './img/人物アイコン.png';
