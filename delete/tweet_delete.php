@@ -5,7 +5,7 @@
 
 $id = $_POST['id'];
 
-require_once('../config.php');
+require_once('../function/config.php');
 
 $sql = 'DELETE FROM tweet_table WHERE id=:id';
 $stmt = $pdo->prepare($sql);

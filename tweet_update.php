@@ -4,7 +4,7 @@
 // exit();
 
 // DB接続
-require_once('./config.php');
+require_once('./function/config.php');
 
 // データ受け取り
 $id = $_POST['id'];

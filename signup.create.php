@@ -1,7 +1,7 @@
 <?php
 
 // DB接続
-require_once('./config.php');
+require_once('./function/config.php');
 
 // パスワードと確認用パスワードのバリデーション
 if ($_POST['password'] !== $_POST['cfmpassword']) {

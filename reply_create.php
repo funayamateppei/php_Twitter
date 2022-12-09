@@ -10,7 +10,7 @@ if (!isset($_POST) || $_POST['text'] === '') {
 // var_dump($_POST);
 // exit();
 
-require_once('./config.php');
+require_once('./function/config.php');
 
 $sql = 'INSERT INTO reply_table (id, text, user_id, username, tweet_id, created_at, updated_at) VALUES (NULL, :text, :user_id, :username, :tweet_id, now(), now())';
 $stmt = $pdo->prepare($sql);

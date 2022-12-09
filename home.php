@@ -6,6 +6,8 @@ session_start();
 // var_dump($_SESSION);
 // exit();
 
+require_once('./function/login_function.php');
+
 // 一応、もしsessionが設定されていないいならログインページにとばす
 if(isset($_SESSION)){
 $welcome = "ようこそ、".$_SESSION['username']."さん！";
@@ -15,7 +17,7 @@ exit();
 }
 
 // DB接続
-require_once('./config.php');
+require_once('./function/config.php');
 
 // SQL作成&実行 ツイート全て取得
 $sql = 'SELECT id, text, user_id, username, created_at FROM tweet_table ORDER BY created_at ASC';
@@ -36,24 +38,72 @@ foreach ($row as $v) {
   $stmtReply->bindValue(':id', $v['id'], PDO::PARAM_INT);
   $stmtReply->execute();
   $reply = $stmtReply->fetchAll(PDO::FETCH_ASSOC);
-
   // 返信数を数える
   $replyCount = count($reply);
 
+  // TOP画像を取得
+  $stmtMyPage = $pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
+  $stmtMyPage->bindValue(':user_id', $v['user_id'], PDO::PARAM_INT);
+  $stmtMyPage->execute();
+  $rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
+  // 投稿１つ１つでsrcを作成する（見つからなかったor空白orURLあり）
+  $img = '';
+  if (!$rowMyPage) {
+    $img .= './img/人物アイコン.png';
+  }else if ($rowMyPage['img'] === '') {
+    $img .= './img/人物アイコン.png';
+  } else {
+    $img .= $rowMyPage['img'];
+  }
+
+  // 自分がいいねしているかどうか判断
+  $sqlLike = 'SELECT like_check FROM like_table WHERE user_id=:user_id AND tweet_id=:tweet_id';
+  $stmtLike = $pdo->prepare($sqlLike);
+  $stmtLike->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+  $stmtLike->bindValue(':tweet_id', $v['id'], PDO::PARAM_INT);
+  $stmtLike->execute();
+  $like = $stmtLike->fetch(PDO::FETCH_ASSOC);
+  $likeSrc = '';
+  if (!$like) {
+    $likeSrc .= './img/ハートマークの無料アイコン素材 11.png';
+  } else if ($like['like_check'] === 1) {
+    $likeSrc .= './img/キラっとしたハートの無料アイコン素材 2.png';
+  } else {
+    $likeSrc .= './img/ハートマークの無料アイコン素材 11.png';
+  }
+
+  // 投稿が何回いいねされているかカウントして表示
+  $sqlLike = 'SELECT like_check FROM like_table WHERE tweet_id=:tweet_id';
+  $stmtLike = $pdo->prepare($sqlLike);
+  $stmtLike->bindValue(':tweet_id', $v['id'], PDO::PARAM_INT);
+  $stmtLike->execute();
+  $like = $stmtLike->fetchAll(PDO::FETCH_ASSOC);
+  $likeCount = 0;
+  foreach ($like as $i) {
+    if ($i['like_check'] === 1) {
+      $likeCount += 1;
+    }
+  }
+
   // ツイートした日時のフォーマットを変更
   $date = date('Y年n月j日 H:i', strtotime($v['created_at']));
-
   $htmlElements .= "
       <div class='item'>
-        <img src='./img/人物アイコン.png' alt='画像'>
+        <img class='logo' src='{$img}' alt='画像'>
         <div class='sentence'>
           <div class='who'>
             <p class='username'>{$v['username']}</p>
             <p class='tweetTime'>{$date}</p>
-            <p>返信数:{$replyCount}</p>
+            <p class='replyCount'>返信数:{$replyCount}</p>
           </div>
           <p>{$v['text']}</p>
-          <a href='./reply.php?id={$v['id']}'>投稿画面へ</a>
+          <div class='flex'>
+            <a href='./like.php?id={$v['id']}'>
+              <img class='img' src='{$likeSrc}'>
+            </a>
+            <p>{$likeCount}</p>
+            <a class='anchor' href='./reply.php?id={$v['id']}'>投稿画面へ</a>
+          </div>
         </div>
       </div>
         ";
@@ -87,12 +137,20 @@ foreach ($row as $v) {
     <div class="homeDisplay">
       <!-- サイドバー -->
       <div id="sideBar">
-        <a href="./myPage.php">マイページへ</a>
+        <div id="myPage" class="bar">
+          <a href="./myPage.php">マイページへ</a>
+        </div>
+
+        <div id="logout" class="bar">
+          <a href="./logout.php">ログアウト</a>
+        </div>
       </div>
+
       <!-- タイムライン -->
       <div id="display">
           <?= $htmlElements ?>
       </div>
+
       <!-- 掲示板 -->
       <div id="bbs">
         集り募集の掲示板みたいなやつ

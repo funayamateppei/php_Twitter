@@ -15,7 +15,7 @@ if (
 $text = $_POST['text'];
 
 // DB接続
-require_once('./config.php');
+require_once('./function/config.php');
 
 // SQL作成&実行
 $sql = 'INSERT INTO tweet_table (id, text, user_id, username, created_at, updated_at) VALUES (NULL, :text, :user_id, :username, now(), now())';

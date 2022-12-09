@@ -27,14 +27,15 @@ body {
 /* ヘッダー */
 header {
   position: fixed;
-  top: 0;
-  right: 0;
-  width: 85%;
+  /* top: 0;
+  right: 0; */
+  width: 100%;
   height: 50px;
   background-color: lightcyan;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 
@@ -43,7 +44,34 @@ header {
   position: fixed;
   width: 15%;
   height: 100%;
+  background-color: rgb(70, 70, 70);
+}
+
+#myPage {
+  margin-top: 50px;
+}
+
+.bar {
+  width: 100%;
+  height: 50px;
   background-color: gray;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: .3s;
+}
+.bar:hover {
+  background-color: rgb(70, 70, 70);
+  transition: .3s;
+}
+
+.bar a {
+  display: inline-block;
+  width: 100%;
+  line-height: 100%;
+  text-align: center;
 }
 
 
@@ -83,9 +111,14 @@ header {
 #display .item .tweetTime {
   font-size: small;
   color: rgb(87, 86, 86);
+  margin: 0 10px;
 }
 
-#display .item img {
+#display .item .replyCount {
+  font-size: small;
+}
+
+#display .item .logo {
   width: 40px;
   height: 40px;
   object-fit: cover;
@@ -94,15 +127,34 @@ header {
   background-color: white;
 }
 
-#display .item a {
+#display .item .img {
+  background-color: #68a4d9;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+#display .item .anchor {
   background-color: rgb(32, 176, 224);
   color: white;
   padding: 3px;
   border-radius: 4px;
   box-shadow: 0 3px gray;
   display: inline-block;
-  margin-left: 80%;
+  margin-left: 10px;
   font-size: 14px;
+}
+
+.flex {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.flex p {
+  font-size: small;
+  padding-top: 2px;
+  padding-left: 5px;
 }
 
 
