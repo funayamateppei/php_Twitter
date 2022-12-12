@@ -59,3 +59,6 @@
 
 - JOIN で WHERE バインド変数を使う方法
   - https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q11234283151
+
+- boolやnullで条件分岐 配列でアクセスしようとしてエラー発生 解決方法
+  - https://31navi.com/php-trying-to-access-array
