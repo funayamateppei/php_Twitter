@@ -21,8 +21,9 @@ require_once('./function/config.php');
 // $rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
 
 // ログインしているユーザー情報とマイページ登録情報をJOINでまとめた
-$sql = "SELECT * FROM user_table LEFT OUTER JOIN (SELECT * FROM myPage_table) AS myPage_table2 ON user_table.id = myPage_table2.user_id";
+$sql = "SELECT * FROM user_table LEFT OUTER JOIN (SELECT * FROM myPage_table) AS myPage_table2 ON user_table.id = myPage_table2.user_id AND user_table.id = :id";
 $stmt = $pdo->prepare($sql);
+$stmt->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
 $stmt->execute();
 $rowUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -119,6 +120,10 @@ foreach ($rowTweet as $v) {
         <div class="email">
           <p>メールアドレス</p>
           <p><?= $rowUser['email'] ?></p>
+        </div>
+        <div id="follow">
+          <a class="follow" href="./follow.php">フォロー</a>
+          <a class="follow" href="./follow.php">フォロワー</a>
         </div>
       </div>
     </div>

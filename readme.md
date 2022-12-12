@@ -56,3 +56,6 @@
   - https://qiita.com/7coco/items/1706a561131363d2c418
   - https://minamiblog-0601.com/img_upload/
   - https://wepicks.net/phpref-files/
+
+- JOIN で WHERE バインド変数を使う方法
+  - https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q11234283151

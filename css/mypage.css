@@ -74,8 +74,9 @@ header {
   justify-content: center;
 }
 
-.username {
+.username, .email {
   margin-bottom: 20px;
+  width: 250px;
 }
 
 .user .free {
@@ -94,6 +95,22 @@ header {
   border-radius: 4px;
   font-size: 12px;
   padding: 3px;
+}
+
+.follow {
+  display: inline-block;
+  width: 90px;
+  text-align: center;
+  color: aliceblue;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #68a4d9;
+  transition: .3s;
+}
+
+.follow:hover {
+  opacity: .7;
+  transition: .3s;
 }
 
 
