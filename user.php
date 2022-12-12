@@ -96,10 +96,10 @@ foreach ($rowTweet as $v) {
 </head>
 
 <body>
-  <a id='homeBack' href="./home.php">戻る</a>
+  <a id='homeBack' href="./search.php">戻る</a>
 
   <header>
-    マイページ
+    ユーザーページ
   </header>
 
   <div class="user">

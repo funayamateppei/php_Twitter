@@ -39,6 +39,19 @@ if ($rowUser['img'] === NULL) {
   $img .= $rowUser['img'];
 }
 
+$sql = "SELECT COUNT(id) FROM follow_table WHERE your_id = :your_id";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':your_id', $_SESSION['id'], PDO::PARAM_INT);
+$stmt->execute();
+$followerCount = $stmt->fetchColumn();
+
+$sql = "SELECT COUNT(id) FROM follow_table WHERE my_id = :my_id";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':my_id', $_SESSION['id'], PDO::PARAM_INT);
+$stmt->execute();
+$followCount = $stmt->fetchColumn();
+
+
 
 // ログインしているユーザーの投稿を全て取得
 $stmt = $pdo->prepare('SELECT * FROM tweet_table WHERE user_id = :id');
@@ -122,8 +135,8 @@ foreach ($rowTweet as $v) {
           <p><?= $rowUser['email'] ?></p>
         </div>
         <div id="follow">
-          <a class="follow" href="./follow.php">フォロー</a>
-          <a class="follow" href="./follow.php">フォロワー</a>
+          <a class="follow" href="./follow.php">フォロー <?=$followCount?></a>
+          <a class="follow" href="./follower.php">フォロワー <?=$followerCount?></a>
         </div>
       </div>
     </div>

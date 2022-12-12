@@ -142,9 +142,11 @@ if (isset($_GET['search_str'])) {
 </head>
 
 <body>
+  <a id='homeBack' href="./home.php">戻る</a>
+
   <form id="searchForm" action="./search.php" method="post">
     <label for="search_term">ユーザー名検索</label>
-    <input type="text" name="search_str" id="search_str" value='<?=$str?>' />
+    <input type="text" name="search_str" id="search_str" value='<?= $str ?>' />
     <input type="submit" value="search" id="search_button" />
   </form>
 

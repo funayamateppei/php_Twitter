@@ -76,7 +76,7 @@ header {
 
 .username, .email {
   margin-bottom: 20px;
-  width: 250px;
+  width: 300px;
 }
 
 .user .free {
@@ -99,13 +99,14 @@ header {
 
 .follow {
   display: inline-block;
-  width: 90px;
+  width: 100px;
   text-align: center;
   color: aliceblue;
   padding: 4px;
   border-radius: 4px;
   background-color: #68a4d9;
   transition: .3s;
+  font-size: 14px;
 }
 
 .follow:hover {
@@ -214,6 +215,7 @@ header {
   color: white;
   font-weight: bold;
   margin: 0;
+  width: 150px;
 }
 
 #display .item .tweetTime {
@@ -223,8 +225,8 @@ header {
 }
 
 #display .item img {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
   border-radius: 50%;
   border: 1px solid white;
