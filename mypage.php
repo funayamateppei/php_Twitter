@@ -7,45 +7,43 @@ require_once('./function/login_function.php');
 // DB接続
 require_once('./function/config.php');
 
+
 // ログインしているユーザー情報を取得
-$stmt = $pdo->prepare('SELECT * FROM user_table WHERE id = :id');
-$stmt->bindValue(':id', $_SESSION['id']);
+// $stmt = $pdo->prepare('SELECT * FROM user_table WHERE id = :id');
+// $stmt->bindValue(':id', $_SESSION['id']);
+// $stmt->execute();
+// $rowUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// フリーテキストとTOP画像を取得
+// $stmtMyPage = $pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
+// $stmtMyPage->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+// $stmtMyPage->execute();
+// $rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
+
+// ログインしているユーザー情報とマイページ登録情報をJOINでまとめた
+$sql = "SELECT * FROM user_table LEFT OUTER JOIN (SELECT * FROM myPage_table) AS myPage_table2 ON user_table.id = myPage_table2.user_id";
+$stmt = $pdo->prepare($sql);
 $stmt->execute();
 $rowUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// var_dump($rowUser);
-// exit();
+$freeText = '';
+if ($rowUser['freetext'] !== NULL) {
+  $freeText .= $rowUser['freetext'];
+}
+// もし登録されているなら登録されている画像 それ以外はデフォ画像
+$img = '';
+if ($rowUser['img'] === NULL) {
+  $img .= './img/人物アイコン.png';
+} else {
+  $img .= $rowUser['img'];
+}
+
 
 // ログインしているユーザーの投稿を全て取得
 $stmt = $pdo->prepare('SELECT * FROM tweet_table WHERE user_id = :id');
 $stmt->bindValue(':id', $_SESSION['id']);
 $stmt->execute();
 $rowTweet = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// var_dump($rowTweet);
-// exit();
-
-// フリーテキストとTOP画像を取得
-$stmtMyPage = $pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
-$stmtMyPage->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
-$stmtMyPage->execute();
-$rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
-
-$freeText = '';
-if ($rowMyPage) {
-  $freeText .= $rowMyPage['freetext'];
-}
-// もし登録されているなら登録されている画像 それ以外はデフォ画像
-$img = '';
-if (!$rowMyPage) {
-  $img .= './img/人物アイコン.png';
-} else if ($rowMyPage['img'] === '') {
-  $img .= './img/人物アイコン.png';
-} else {
-  $img .= $rowMyPage['img'];
-}
-// var_dump($img);
-// exit();
 
 $htmlElements = '';
 // 繰り返し文で表示する用の文字列を作成
@@ -78,11 +76,6 @@ foreach ($rowTweet as $v) {
     </div>
   ";
 }
-
-
-// TOP画像を登録してあれば登録してあるものをなければデフォルトを表示
-$topImg = '';
-
 
 ?>
 
