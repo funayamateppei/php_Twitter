@@ -1,0 +1,105 @@
+/* ホームに戻るボタン */
+#homeBack {
+  position: fixed;
+  display: inline-block;
+  width: 100px;
+  line-height: 50px;
+  text-align: center;
+  top: 0;
+  left: 50px;
+  z-index: 1;
+  transition: .5s;
+  border-radius: 4px;
+}
+
+#homeBack:hover {
+  background-color: #68a4d9;
+  transition: .5s;
+}
+
+
+/* フォーム */
+#searchForm {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#searchForm input {
+  margin: 0 5px;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+header {
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+}
+
+
+/* ツイート表示 */
+#display {
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
+  background-color: #68a4d9;
+  border-right: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#display .item {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 80%;
+  padding: 10px;
+  border-bottom: .5px solid gray;
+}
+
+#display .item .sentence {
+  margin-left: 8px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#display .item .username {
+  color: white;
+  font-weight: bold;
+  margin: 0;
+}
+
+#display .item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid white;
+  background-color: white;
+}
+
+#display .item p {
+  font-size: 20px;
+}
+
+#display .item a {
+  background-color: rgb(32, 176, 224);
+  color: white;
+  padding: 3px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 5px;
+  transition: .3s;
+}
+
+#display .item a:hover {
+  opacity: .6;
+  background-color: rgb(153, 205, 250);
+  transition: .3s;
+}

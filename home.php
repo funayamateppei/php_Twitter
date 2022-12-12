@@ -141,6 +141,10 @@ foreach ($row as $v) {
           <a href="./myPage.php">マイページへ</a>
         </div>
 
+        <div class="bar">
+          <a href="./search.php">ユーザー検索</a>
+        </div>
+
         <div id="logout" class="bar">
           <a href="./logout.php">ログアウト</a>
         </div>

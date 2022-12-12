@@ -7,6 +7,8 @@ require_once('./function/login_function.php');
 // DB接続
 require_once('./function/config.php');
 
+$id = $_GET['id'];
+
 
 // ログインしているユーザー情報を取得
 // $stmt = $pdo->prepare('SELECT * FROM user_table WHERE id = :id');
@@ -23,7 +25,7 @@ require_once('./function/config.php');
 // ログインしているユーザー情報とマイページ登録情報をJOINでまとめた
 $sql = "SELECT * FROM user_table LEFT OUTER JOIN (SELECT * FROM myPage_table) AS myPage_table2 ON user_table.id = myPage_table2.user_id AND user_table.id = :id";
 $stmt = $pdo->prepare($sql);
-$stmt->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $stmt->execute();
 $rowUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -39,23 +41,10 @@ if ($rowUser['img'] === NULL) {
   $img .= $rowUser['img'];
 }
 
-$sql = "SELECT COUNT(id) FROM follow_table WHERE your_id = :your_id";
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':your_id', $_SESSION['id'], PDO::PARAM_INT);
-$stmt->execute();
-$followerCount = $stmt->fetchColumn();
-
-$sql = "SELECT COUNT(id) FROM follow_table WHERE my_id = :my_id";
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':my_id', $_SESSION['id'], PDO::PARAM_INT);
-$stmt->execute();
-$followCount = $stmt->fetchColumn();
-
-
 
 // ログインしているユーザーの投稿を全て取得
 $stmt = $pdo->prepare('SELECT * FROM tweet_table WHERE user_id = :id');
-$stmt->bindValue(':id', $_SESSION['id']);
+$stmt->bindValue(':id', $id);
 $stmt->execute();
 $rowTweet = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -107,22 +96,16 @@ foreach ($rowTweet as $v) {
 </head>
 
 <body>
-  <a id='homeBack' href="./home.php">戻る</a>
+  <a id='homeBack' href="./search.php">戻る</a>
 
   <header>
-    マイページ
+    ユーザーページ
   </header>
 
   <div class="user">
     <div class="flex">
       <div class="topImg">
-        <form action="./img_update.php" method="POST" enctype="multipart/form-data">
-          <input id="topImg" type="file" name="img" accept=".jpg, .jpeg, .png">
-          <label for="topImg">
-            <img src="<?= $img ?>" alt="TOP画像">
-          </label>
-          <button class="none">画像更新</button>
-        </form>
+            <img src="<?= $img ?>">
       </div>
 
       <div class="userInfo">
@@ -135,8 +118,7 @@ foreach ($rowTweet as $v) {
           <p><?= $rowUser['email'] ?></p>
         </div>
         <div id="follow">
-          <a class="follow" href="./follow.php">フォロー <?=$followCount?></a>
-          <a class="follow" href="./follower.php">フォロワー <?=$followerCount?></a>
+          <!-- フォロー中ーーーーーーーーーーーー -->
         </div>
       </div>
     </div>
@@ -146,56 +128,10 @@ foreach ($rowTweet as $v) {
         <!-- php フリーテキスト表示 -->
         <?= $freeText ?>
       </p>
-      <img id="freeText" src="./img/消しゴム付きの鉛筆のアイコン素材.png" alt="logo">
     </div>
-  </div>
-
-  <!-- フリーテキストフォーム画面 -->
-  <div id="free">
-    <form action="./freeText_update.php" method="POST">
-      <img id="Close" src="./img/ノーマルの太さのバツアイコン.png" alt="logo">
-      <textarea name="text" id="tweet" cols="50" rows="15"></textarea>
-      <button>更新</button>
-    </form>
   </div>
 
 
   <div id="display">
     <?= $htmlElements ?>
   </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  <script>
-    // 画像ファイル選択時にだけ保存ボタンを
-    $('#topImg').change(() => {
-      if ($('#topImg').val() === '') {
-        $('.none').hide();
-      } else {
-        $('.none').show();
-      }
-    })
-
-    $('#freeText').on('click', () => {
-      $('#free').fadeIn();
-      $('#free form').fadeIn();
-      $('#free form textarea').fadeIn();
-    })
-
-    $('#Close').on('click', () => {
-      $('#free').fadeOut();
-      $('#free form').fadeOut();
-      $('#free form textarea').fadeOut();
-    })
-
-    $('#free button').on('click', () => {
-      if ($('#tweet').val() === '') {
-        alert('入力してください。');
-        return
-      }
-    })
-  </script>
-
-</body>
-
-</html>
