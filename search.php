@@ -159,23 +159,21 @@ if (isset($_GET['search_str'])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <script>
+    // ajax通信でうまいことできんか？
     // $('#search_str').on('keyup', (e) => {
-    //   e.preventDefault();
-    //   if ($('#search_str').val() !== '') {
-    //     // inputタグの中の内容を投げるためにオブジェクト化
-    //     let data = {
-    //       str: $('#search_str').val()
-    //     };
-    //     $.ajax({
-    //       url: "./search_create.php",
-    //       type: "POST",
-    //       data: data,
-    //     }).done((data) => {
-    //       $('#result').empty();
-    //       let search_word = JSON.parse(data || "null");
-    //     })
-
-    //   }
+    //   let str = $('#search_str').val();
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "search.php",
+    //     data: {
+    //       search_str: str
+    //     },
+    //     dataType: "json"
+    //   }).done((data) => {
+    //     console.log('hoge')
+    //   }).catch((e) => {
+    //     console.log('fuga')
+    //   })
     // })
   </script>
 </body>
