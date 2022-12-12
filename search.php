@@ -149,7 +149,7 @@ if (isset($_GET['search_str'])) {
   <form id="searchForm" action="./search.php" method="post">
     <label for="search_term">ユーザー名検索</label>
     <input type="text" name="search_str" id="search_str" value='<?= $str ?>' />
-    <input type="submit" value="search" id="search_button" />
+    <!-- <input type="submit" value="search" id="search_button" /> -->
   </form>
 
   <div id="display">
