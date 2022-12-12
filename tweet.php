@@ -72,7 +72,7 @@ if (count($row2) !== 0) {
 $imgUrl = '';
     // TOP画像を取得
     $stmtMyPage = $pdo->prepare('SELECT * FROM myPage_table WHERE user_id = :user_id');
-    $stmtMyPage->bindValue(':user_id', $v['user_id'], PDO::PARAM_INT);
+    $stmtMyPage->bindValue(':user_id', $row1['user_id'], PDO::PARAM_INT);
     $stmtMyPage->execute();
     $rowMyPage = $stmtMyPage->fetch(PDO::FETCH_ASSOC);
     // 投稿１つ１つでsrcを作成する（見つからなかったor空白orURLあり）
