@@ -8,7 +8,7 @@ require_once('./function/config.php');
 $str = '';
 $htmlElements = '';
 
-// 本当はajaxをkeyupイベントで起動してリアルタイム検索に変更！！！！
+// ajaxをkeyupイベントで起動してリアルタイム検索に変更！！！！
 
 // if (isset($_POST['search_str'])) {
 //   if ($_POST['search_str'] !== '') {
@@ -73,7 +73,8 @@ $htmlElements = '';
 
 
 
-
+// ユーザー一覧やフォローを別ページでして戻ってくる時に、検索しているアカウントとか文字が消える
+// GETで文字列返してもらってページとんだときの画面にする機能
 if (isset($_GET['search_str'])) {
   if ($_GET['search_str'] !== '') {
     $str = $_GET['search_str'];
@@ -120,7 +121,7 @@ if (isset($_GET['search_str'])) {
               <p class='username'>{$v['username']}</p>
               <div>
                 <a href='./follow_create.php?id={$v['id']}&search_str={$str}'>{$follow}</a>
-                <a href='./user.php?id={$v['id']}'>ユーザーページへ</a>
+                <a href='./user.php?id={$v['id']}&search_str={$str}'>ユーザーページへ</a>
               </div>
           </div>
         </div>

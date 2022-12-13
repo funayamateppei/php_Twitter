@@ -62,7 +62,7 @@ if (isset($_POST['search_str'])) {
               <p class='username'>{$v['username']}</p>
               <div>
                 <a href='./follow_create.php?id={$v['id']}&search_str={$str}'>{$follow}</a>
-                <a href='./user.php?id={$v['id']}'>ユーザーページへ</a>
+                <a href='./user.php?id={$v['id']}&search_str={$str}'>ユーザーページへ</a>
               </div>
           </div>
         </div>
