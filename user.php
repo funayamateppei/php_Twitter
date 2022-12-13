@@ -96,7 +96,7 @@ foreach ($rowTweet as $v) {
 </head>
 
 <body>
-  <a id='homeBack' href="./search.php">戻る</a>
+  <a id='homeBack' href="./search.php?search_str=<?=$_GET['search_str']?>">戻る</a>
 
   <header>
     ユーザーページ
